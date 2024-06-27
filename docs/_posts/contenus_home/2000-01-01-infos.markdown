@@ -1,0 +1,15 @@
+---
+infos: true
+title: Infos pratiques
+html_id: infos
+---
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+
+- [Règlement intérieur](/infos-pratiques/reglement-interieur)
+- [Infos 2](/documents/Lorem_ipsum.pdf)
+- [Infos 3](/documents/Lorem_ipsum.pdf)

@@ -1,0 +1,33 @@
+<div class="grid grid-cols-1 xl:grid-cols-3 gap-6 2xl:gap-x-10 gap-y-20 z-20 relative z-20">
+    {% assign infoPosts = site.posts | where_exp: "post", "post.type == 'info'" %}
+    {% assign limit = 9999999999 %}
+    {% if include.postLimit %}
+        {% assign postLimit = include.postLimit %}
+    {% endif %}
+    {% for post in infoPosts limit:postLimit %}
+        {% assign postTitleSize = post.title | size %}
+        {% assign postTitleSizeMinusOne = postTitleSize | minus:1 %}
+        <a href="{{ post.url }}" class="flex flex-col relative trigger-link-animation pb-16">            
+            {% if post.image %}
+                <img alt="{{ post.title }}" class="h-60 w-full object-cover mask-grunge-cover my-3" src="{{ '/images/' | append: post.image | relative_url }}">
+            {% else %}
+                <div class="h-60 w-full my-3">
+                    <div class="w-full h-full w-full-child h-full-child fill-primary-400 bg-primary-800 p-12 mask-grunge-cover">{% include book.svg %}</div>        
+                </div>
+            {% endif %}            
+            <h2 class="text-justify text-2xl 2xl:text-3xl my-3 tracking-wide">
+                <span class="xl:text-6xl text-primary-400 font-family-fairy font-light">{{ post.title | slice:0 }}</span>{{ post.title | slice: 1, postTitleSizeMinusOne }}                        
+            </h2>
+            {% capture dateYear %}
+                {{ post.date | date: "%Y" }}
+            {% endcapture %}
+            {% assign dateYear=dateYear | plus:0 %}
+            {% if dateYear > 2000 %}
+                <div class="text-xl text-primary-400">Le {{ post.date | date: "%d/%m/%Y" }}</div>
+            {% endif %}
+            <div class="inline-block absolute bottom-0">
+                <div class="inline-block text-2xl italic text-orange-300 link-animation"><i class="fa fa-eye"></i>&nbsp;Lire la suite</div>
+            </div>
+        </a>
+    {% endfor %}                                 
+</div>

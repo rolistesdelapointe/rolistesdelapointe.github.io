@@ -1,0 +1,20 @@
+{% comment %}
+    Strip HTML tags and optionnaly keep br
+{% endcomment %}
+
+{% assign preprocessedContent=include.content %}
+
+{% if include.keepBr %}
+    {% assign preprocessedContent=include.content | replace: '<p>', '__p__' %}
+    {% assign preprocessedContent=preprocessedContent | replace: '</p>', '__/p__' %}
+{% endif %}
+
+{% assign stripedContent=preprocessedContent | strip_html %}
+{% assign cleanedContent=stripedContent %}
+
+{% if include.keepBr %}
+    {% assign cleanedContent=stripedContent | replace: '__p__', '<p>' %}
+    {% assign cleanedContent=cleanedContent | replace: '__/p__', '</p>' %}
+{% endif %}
+
+{{ cleanedContent }}

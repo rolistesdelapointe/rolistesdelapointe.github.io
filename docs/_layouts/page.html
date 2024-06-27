@@ -1,0 +1,41 @@
+---
+layout: theme-layout
+---
+
+<div class="mx-auto px-0 xs:px-[8vmin] md:px-24 lg:px-36 xl:px-40 2xl:px-80">
+    <section {% if page.html_id %}id="{{ page.html_id }}"{% endif %} class="py-6 xl:py-12">
+        <div class="relative z-50">                        
+            <div class="py-10 text-lg flex flex-col md:flex-row items-center gap-x-1">
+                {% include crumb.html currentUrl=page.url postTitle=page.title featured=page.featured %}
+            </div>        
+
+            {% if page.title %}
+                {% assign postTitleSize = page.title | size %}
+                {% assign postTitleSizeMinusOne = postTitleSize | minus:1 %}
+                <h1 class="text-center xl:text-left text-4xl md:text-5xl xl:text-6xl my-6 lg:my-0 lg:mb-6 tracking-wider">       
+                    <span class="xl:text-9xl text-primary-400 font-light font-family-fairy">{{ page.title | slice:0 }}</span>{{ page.title | slice: 1, postTitleSizeMinusOne}}
+                </h1>
+            {% endif %}
+
+            {% capture dateYear %}
+                {{ page.date | date: "%Y" }}
+            {% endcapture %}
+            {% assign dateYear=dateYear | plus:0 %}
+            {% if dateYear > 2000 %}
+                <div class="text-center xl:text-left text-2xl text-primary-400">Le {{ page.date | date: "%d/%m/%Y" }}</div>
+            {% endif %}
+
+            {% if page.image %}
+            <div class="relative">
+                <img class="relative z-10 h-[20rem] xl:h-[30rem] w-full object-cover my-12 mask-grunge-cover" src="{{ '/images/' | append: page.image | relative_url }}">
+            </div>
+            {% endif %}
+
+            {% if content %}
+                <div class="text-body-responsive py-4 {% if page.type == 'blog' or page.type == 'info' %}markdown{% endif %}">
+                    {{ content }}
+                </div>
+            {% endif %}
+        </div>
+    </section>    
+</div>

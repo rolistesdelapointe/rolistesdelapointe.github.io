@@ -1,0 +1,101 @@
+{% assign featuredPost = site.posts | where: "featured", true | where_exp: "post", "post.path contains 'pages_blog'" | first %}
+<!doctype html>
+<html lang="fr-FR" class="min-h-full lg:scroll-smooth bg-primary-900">
+    <head>
+        <meta charset="UTF-8">
+        {% seo %}
+        <meta name="viewport" content="width=device-width, height=device-height initial-scale=1.0">        
+        <script src="{{ '/assets/js/jquery-3.7.1.min.js?v=' | append: site.github.build_revision | relative_url }}"></script>
+        <script src="{{ '/assets/js/app.js?v=' | append: site.github.build_revision | relative_url }}"></script>        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="{{ '/assets/css/main.css?v=' | append: site.github.build_revision | relative_url }}">        
+        <link rel="shortcut icon" href="{{ '/assets/images/favicon.svg?v=' | append: site.github.build_revision | relative_url }}" type="image/svg">
+    </head>
+    <body class="text-primary-200 min-h-full bg-cream-paper bg-cover bg-no-repeat font-sans">
+        <!-- Header -->
+        <header class="header py-10">
+            <nav class="text-primary-800 fill-primary-800 w-full mx-auto px-12 xs-h-max:justify-end [&.sticky-header>.nav-menu-container]:bg-primary-700 [&.sticky-header>.nav-menu-container]:text-primary-200 md:px-14 xl:px-32 2xl:px-40 flex flex-row items-center justify-between z-50 duration-300 ease-in-out py-12 absolute top-0 transform-gpu">
+                <div class="bg-primary-800 nav-bg absolute z-10 w-full h-full left-0 right-0 top-0 -skew-y-1 opacity-0 xs-h-max:hidden"></div>
+                <div class="bg-primary-900 nav-bg absolute z-10 w-full h-full left-0 right-0 -top-8 skew-y-2 opacity-0 xs-h-max:hidden"></div>
+                
+                <!-- Logo -->
+                <a id="logo-wrapper" href="/" class="flex flex-row items-center relative z-20 h-full xs-h-max:hidden">
+                    <div id="logo" class="relative h-12 sm:h-20">
+                        <div class="absolute w-full h-full flex items-center justify-center left-[-2px] -top-1">                            
+                            <div class="text-yellow-50 logo-text text-sm sm:text-2xl font-family-fairy">R</div>
+                        </div>                        
+                        <div class="w-full h-full w-full-child h-full-child">
+                            {% include dice.svg %}
+                        </div>                        
+                    </div>                
+                    <div class="text-md text-md xl:text-xl mx-5 tracking-wide uppercase hidden xl:block">Les Rôlistes<br> de la Pointe</div>                    
+                </a>
+
+                <!-- Menu -->
+                <div class="nav-menu-container flex flex-col xs-h-max:py-2 xs-h-max:px-4">
+                    <i class="relative z-40 nav-btn fa fa-bars text-4xl lg:hidden cursor-pointer"></i>
+                    <div class="text-primary-200 bg-primary-800 lg:text-primary-800 nav-menu h-screen w-0 p-0 fixed z-50 top-0 right-0 lg:bg-transparent lg:w-full lg:h-auto lg:p-0 lg:relative lg:flex lg:flex-col lg:gap-0 duration-300 ease-in-out transform-gpu lg:transform-none">
+                        <div class="nav-menu-wrapper gap-6 flex-row justify-between hidden lg:flex">
+                            <div class="lg:hidden mb-4">
+                                <i class="close-menu-btn fa fa-xmark text-4xl cursor-pointer"></i>
+                            </div>
+                            <ul class="flex flex-col xs:grid xs:grid-cols-2 flex-wrap flex-grow text-[6vmin] gap-6 lg:text-lg lg:gap-4 lg:flex lg:flex-row">
+                                <li class="inline-block"><a class="link-animation inline-block" href="/">Accueil</a></li>
+                                <li class="inline-block"><a class="link-animation inline-block" href="/#reseaux">Nos réseaux</a></li>
+                                <li class="inline-block"><a class="link-animation inline-block" href="/#qui-sommes-nous">Qui sommes nous ?</a></li>
+                                {% if featuredPost %}
+                                    <li class="inline-block"><a class="link-animation inline-block" href="/#brulant"><i class="fa fa-fire text-orange-600"></i>&nbsp;Brûlant</a></li>
+                                {% endif %}
+                                <li class="inline-block"><a class="link-animation inline-block" href="/#le-blog">Le blog</a></li>
+                                <li class="inline-block"><a class="link-animation inline-block" href="/#infos-pratiques">Infos pratiques</a></li>           
+                                <li class="inline-block"><a class="link-animation inline-block" href="/#nous-rejoindre">Nous rejoindre</a></li>
+                            </ul>
+                        </div>
+                    </div>                    
+                </div>
+            </nav>
+        </header>
+
+        <!-- Contenu -->
+        {{ content }}
+        
+        <!-- Footer -->
+        <footer class="text-primary-800 bg-transparent lg:text-primary-200 lg:bg-primary-800 grid grid-cols-1 lg:grid-cols-3 gap-24 lg:gap-10 mx-auto px-[8vmin] md:px-24 xl:px-40 py-8 mt-12">
+            <div class="flex flex-row items-center justify-center">
+                <ul class="flex flex-col lg:grid lg:grid-cols-2 gap-4 text-lg items-center lg:items-start">
+                    <li class="inline-block"><a class="link-animation inline-block" href="/">Accueil</a></li>
+                    <li class="inline-block"><a class="link-animation inline-block" href="/#reseaux">Nos réseaux</a></li>
+                    <li class="inline-block"><a class="link-animation inline-block" href="/#qui-sommes-nous">Qui sommes nous ?</a></li>
+                    {% if featuredPost %}
+                        <li class="inline-block"><a class="link-animation inline-block" href="/#brulant"><i class="fa fa-fire"></i>&nbsp;Brûlant</a></li>
+                    {% endif %}
+                    <li class="inline-block"><a class="link-animation inline-block" href="/#le-blog">Le blog</a></li>
+                    <li class="inline-block"><a class="link-animation inline-block" href="/#infos-pratiques">Infos pratiques</a></li>           
+                    <li class="inline-block"><a class="link-animation inline-block" href="/#nous-rejoindre">Nous rejoindre</a></li>
+                </ul>
+            </div>
+            <div class="flex flex-col items-center justify-center gap-2">
+                <div class="font-family-fairy tracking-widest text-5xl">Les Rôlistes<br> de la Pointe</div>
+            </div>
+            <div class="flex flex-row items-center justify-center">
+                <ul class="flex flex-row gap-10 flex-wrap">
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/" class="w-12 h-12 rounded-full flex flex-col justify-center items-center animation-tilt-hover">
+                            <i class="text-2xl fa-brands fa-facebook-f"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="https://www.instagram.com/" class="w-12 h-12 rounded-full flex flex-col justify-center items-center animation-tilt-hover">
+                            <i class="text-2xl fa-brands fa-square-instagram"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="https://discord.com/" class="w-12 h-12 rounded-full flex flex-col justify-center items-center animation-tilt-hover">
+                            <i class="text-2xl fa-brands fa-discord"></i>
+                        </a>
+                    </li>
+                </ul>                
+            </div>            
+        </footer>
+    </body>
+</html>

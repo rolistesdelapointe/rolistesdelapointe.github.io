@@ -1,0 +1,15 @@
+{% assign crumbs = include.currentUrl | remove:'/index.html' | split: '/' %}
+
+<a class="text-orange-300 italic  link-animation" href="/"><i class="fa fa-home"></i>&nbsp;Accueil</a>
+{% for crumb in crumbs offset: 1 %}
+  {% if forloop.last %}
+    <i class="fa fa-angle-right hidden md:block"></i> <span class="capitalize font-bold">
+      {{ include.postTitle }}
+      {% if include.featured %}
+          <i class="text-xl text-orange-600 fa fa-fire"></i>
+      {% endif %}
+    </span>
+  {% else %}
+    <i class="fa fa-angle-right hidden md:block"></i> <a class="text-orange-300 italic link-animation capitalize" href="{% assign crumb_limit = forloop.index | plus: 1 %}{% for crumb in crumbs limit: crumb_limit %}{{ crumb | relative_url }}{% endfor %}">{{ crumb | replace:'-',' ' | remove:'.html' }}</a>
+  {% endif %}
+{% endfor %}

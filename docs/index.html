@@ -1,0 +1,105 @@
+---
+layout: theme-layout
+---
+
+<!-- Intro accueil -->
+<div class="mx-auto px-12 md:px-24 xl:px-40">            
+    <div class="pt-[20vmin] 2xl:pt-80 min-h-screen flex flex-row">
+        <div>
+            <div class="text-primary-800 text-7xl sm:text-8xl md:text-9xl xl:text-[9rem] mb-10 font-family-fairy -tracking-wide">
+                Les <span class="text-primary-600">R</span>ôlistes
+                <br>
+                <span class="text-primary-800 ml-0 sm:ml-12 lg:ml-24">de la Pointe</span></div>
+            <div class="text-primary-800 text-3xl">Association de jeu de rôle à<br>Saint-Sulpice-la-Pointe</div>                    
+        </div>      
+    </div>
+</div>
+
+<!-- Contenu -->
+<div class="mx-auto px-0 xs:px-[8vmin] md:px-24 lg:px-36 xl:px-40 2xl:px-80">
+
+    <!-- Flèche défilement -->
+    <div class="hidden md:flex items-center justify-center">
+        <a href="#reseaux" class="text-primary-200 bg-primary-800 w-10 h-10 flex justify-center items-center rounded-full text-2xl fixed bottom-12 fade-out-with-scroll motion-safe:animate-bounce transform-gpu">
+            <i class="fa fa-angle-down"></i>
+        </a>
+    </div>
+
+    <!-- Réseaux sociaux -->
+    <div class="absolute -mt-32" id="reseaux"></div>
+    <section class="grid grid-cols-1 xl:grid-cols-3 gap-24">
+        <div class="flex flex-col items-center text-center relative z-20">
+            <a target="_blank" href="https://www.facebook.com/" class="bg-primary-300 w-24 h-24 rounded-full flex flex-col justify-center items-center animation-tilt-hover">
+                <i class="text-primary-800 text-4xl fa-brands fa-facebook-f"></i>
+            </a>
+            <a target="_blank" href="https://www.facebook.com/" class="my-6 text-2xl text-primary-400 link-animation">Suivez-nous sur <span class="border-slate-400 font-bold">Facebook</span></a>
+            <div class="text-justify text-body-responsive">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+        </div>
+        <div class="flex flex-col items-center text-center relative z-20">
+            <a target="_blank" href="https://www.instagram.com/" class="bg-primary-300 w-24 h-24 rounded-full flex flex-col justify-center items-center animation-tilt-hover">
+                <i class="text-primary-800 text-5xl fa-brands fa-square-instagram"></i>
+            </a>
+            <a target="_blank" href="https://www.instagram.com/" class="my-6 text-2xl text-primary-400 link-animation">Suivez-nous sur <span class="border-slate-400 font-bold">Instagram</span></a>
+            <div class="text-justify text-body-responsive">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+        </div>
+        <div class="flex flex-col items-center text-center relative z-20">
+            <a target="_blank" href="https://discord.com/" class="bg-primary-300 w-24 h-24 rounded-full flex flex-col justify-center items-center animation-tilt-hover">
+                <i class="text-primary-800 text-4xl fa-brands fa-discord"></i>
+            </a>
+            <a target="_blank" href="https://discord.com/" class="my-6 text-2xl text-primary-400 link-animation">Venez partager sur <span class="border-slate-400 font-bold">Discord</span></a>
+            <div class="text-justify text-body-responsive">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+        </div>
+    </section>
+
+    <!-- Qui sommes-nous ? -->
+    <div id="qui-sommes-nous" class="absolute -mt-32"></div>
+    {% assign homePost = site.posts | where: "qui_sommes_nous", true | where_exp: "post", "post.path contains 'contenus_home'" | first %}    
+    {% include 2-col-section.html svg="banner-icon.svg" title=homePost.title content=homePost.content reverse=true %}
+
+    <!-- Le blog - Article mis en avant -->    
+    <div id="brulant" class="absolute -mt-32"></div>
+    {% assign featuredPost = site.posts | where: "featured", true | where_exp: "post", "post.path contains 'pages_blog'" | first %}
+    {% if featuredPost %}
+        {% capture featuredPostImgUrl %}{{ '/images/' | append: featuredPost.image | relative_url }}{% endcapture %}
+        {% include 2-col-section.html img=featuredPostImgUrl postUrl=featuredPost.url title=featuredPost.title content=featuredPost.content reverse=false stripHtml=true truncateWords=50 faIcon='fa fa-fire' %}
+    {% endif %}
+
+    <!-- Le blog - Derniers articles -->
+    <div id="le-blog" class="absolute -mt-32"></div>
+    <section id="trois-derniers-articles">
+        <h1 class="text-center xl:text-left text-4xl md:text-5xl xl:text-6xl my-6 lg:my-0 lg:mb-6 tracking-wide relative z-20">       
+            <span class="xl:text-8xl text-primary-400 font-family-fairy font-light">L</span>e blog
+        </h1>
+
+        {% assign allBlogPosts = site.pages | where_exp: "page", "page.path contains 'pages/blog/tous-les-articles'" | first %}
+        <div class="relative mb-6 z-20">
+            <div class="inline-block">
+                <a href="{{ allBlogPosts.url }}" class="text-2xl italic link-animation text-orange-300"><i class="fa fa-list-ul"></i>&nbsp;Voir tous les articles</a>
+            </div>
+        </div>        
+
+        {% include post-list.html postLimit=3 excludeFeatured=true %}
+    </section>
+
+    <!-- Infos pratiques -->
+    <div id="infos-pratiques" class="absolute -mt-32"></div>
+    {% assign homePost = site.posts | where: "infos", true | where_exp: "post", "post.path contains 'contenus_home'" | first %}
+    {% assign allInfos = site.pages | where_exp: "page", "page.path contains 'pages/infos-pratiques/toutes-les-infos'" | first %}
+    {% capture allInfosLink %}
+        <div class="inline-block">
+            <a href="{{ allInfos.url }}" class="text-2xl italic link-animation text-orange-300"><i class="fa fa-list-ul"></i>&nbsp;Voir tous les articles</a>
+        </div>    
+    {% endcapture %}
+    {% include 2-col-section.html svg="book.svg" title=homePost.title content=homePost.content reverse=true topHook=allInfosLink %}
+
+    <!-- Nous rejoindre -->
+    <div id="nous-rejoindre" class="absolute -mt-32"></div>
+    {% assign homePost = site.posts | where: "nous_rejoindre", true | where_exp: "post", "post.path contains 'contenus_home'" | first %}
+    {% assign homePostMore = site.posts | where: "nous_rejoindre_infos", true | where_exp: "post", "post.path contains 'pages_infos'" | first %}
+    {% capture homePostMoreLink %}
+        <div class="inline-block">
+            <a href="{{ homePostMore.url }}" class="text-2xl italic link-animation text-orange-300"><i class="fa fa-eye"></i>&nbsp;En savoir plus</a>
+        </div>
+    {% endcapture %}
+    {% include 2-col-section.html htmlId=homePost.html_id svg="casque.svg" title=homePost.title content=homePost.content reverse=false topHook=homePostMoreLink %}
+</div>

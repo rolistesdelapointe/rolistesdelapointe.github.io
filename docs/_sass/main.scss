@@ -1,0 +1,254 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+$color-primary: #5b6992;
+$color-primary-50:  lighten($color-primary, 60);
+$color-primary-100: lighten($color-primary, 50);
+$color-primary-200: lighten($color-primary, 42);
+$color-primary-300: lighten($color-primary, 30);
+$color-primary-400: lighten($color-primary, 20);
+$color-primary-500: lighten($color-primary, 10);
+$color-primary-600:  darken($color-primary, 0);
+$color-primary-700:  darken($color-primary, 12);
+$color-primary-800:  darken($color-primary, 25);
+$color-primary-900:  darken($color-primary, 38);
+$color-primary-950:  darken($color-primary, 45);
+
+$color-secondary: #ff8737;
+$color-secondary-50:  lighten($color-secondary, 60);
+$color-secondary-100: lighten($color-secondary, 50);
+$color-secondary-200: lighten($color-secondary, 42);
+$color-secondary-300: lighten($color-secondary, 30);
+$color-secondary-400: lighten($color-secondary, 20);
+$color-secondary-500: lighten($color-secondary, 10);
+$color-secondary-600:  darken($color-secondary, 0);
+$color-secondary-700:  darken($color-secondary, 12);
+$color-secondary-800:  darken($color-secondary, 25);
+$color-secondary-900:  darken($color-secondary, 38);
+$color-secondary-950:  darken($color-secondary, 45);
+
+:root {
+	--primary-color-50:  #{$color-primary-50};
+	--primary-color-100: #{$color-primary-100};
+	--primary-color-200: #{$color-primary-200};
+	--primary-color-300: #{$color-primary-300};
+	--primary-color-400: #{$color-primary-400};
+	--primary-color-500: #{$color-primary-500};
+	--primary-color-600: #{$color-primary-600};
+	--primary-color-700: #{$color-primary-700};
+	--primary-color-800: #{$color-primary-800};
+	--primary-color-900: #{$color-primary-900};
+	--primary-color-950: #{$color-primary-950};
+
+	--secondary-color-50:  #{$color-secondary-50};
+	--secondary-color-100: #{$color-secondary-100};
+	--secondary-color-200: #{$color-secondary-200};
+	--secondary-color-300: #{$color-secondary-300};
+	--secondary-color-400: #{$color-secondary-400};
+	--secondary-color-500: #{$color-secondary-500};
+	--secondary-color-600: #{$color-secondary-600};
+	--secondary-color-700: #{$color-secondary-700};
+	--secondary-color-800: #{$color-secondary-800};
+	--secondary-color-900: #{$color-secondary-900};
+	--secondary-color-950: #{$color-secondary-950};
+}
+
+@font-face {
+    font-family: 'FairyDustB';
+    src: url(../fonts/FairyDustB.woff) format('woff'),
+	url(../fonts/FairyDustB.ttf) format('truetype'),
+	url(../fonts/FairyDustB.otf) format('opentype');
+}
+
+.animation-tilt-hover:first-child:hover {
+	animation: animation-tilt-shaking 2s ease-in-out infinite;
+}
+#logo-wrapper:hover > #logo {
+	animation: animation-tilt-shaking 2s ease-in-out infinite;
+}
+@keyframes animation-tilt-shaking {
+	0% { transform: rotate(0deg); }
+	2% { transform: rotate(5deg); }
+	4% { transform: rotate(0eg); }
+	6% { transform: rotate(-5deg); }
+	8% { transform: rotate(0deg); }
+	100% { transform: rotate(0deg); }
+}
+
+@layer base {
+	.mask-grunge-cover {
+		mask-image: url('/assets/images/grunge-mask.svg');
+		mask-size: cover;
+		mask-repeat: round;
+	}
+}
+
+@layer utilities {
+	.section {		
+		border-style: solid;
+		border-image-source: url('/assets/images/outer-border.svg');
+		border-image-slice: 20;
+		border-image-width: 60px;
+		border-image-repeat: round;
+		border-image-outset: 55px;
+	}
+	
+	.section-after {
+		border-style: solid;
+		border-image-source: url('/assets/images/section-border.svg');		
+		border-image-slice: 80;
+		border-image-width: 70px;
+		border-image-repeat: round;
+		border-image-outset: 0px;
+	}
+
+	.chevron-right {
+		content: "\f054";
+		font-family: "fontawesome";
+	}		
+	
+	.link-animation-after {
+		content: '';
+		display: block;
+		border-bottom: solid 2px;
+		transform: scaleX(0);  
+		transition: transform 250ms ease-in-out;
+	}
+	
+	.link-animation-hover-after {
+		transform: scaleX(1);
+	}
+
+	.font-family-fairy {
+		font-family: "FairyDustB";
+	}
+}
+
+@layer components {
+	body {
+		@apply h-full overflow-y-scroll;
+	}
+	.text-body-responsive {
+		@apply text-[5vmin] xs:text-2xl;
+	}
+	header {
+		nav {
+			&.sticky-header {
+				@apply fixed py-3 text-primary-200 fill-primary-200;
+				.nav-menu {
+					@apply lg:text-primary-200;
+				}
+				.nav-bg {
+					@apply opacity-100;
+				}
+				.logo-text {
+					@apply text-primary-800;
+				}
+			}
+		}
+	}
+
+	section {
+		@apply section my-24 xl:my-48 p-12 relative z-20 bg-primary-900;
+		&:after {
+			@apply xs:section-after bg-transparent w-full h-full absolute z-10 top-0 left-0 content-[''];
+		}
+	}
+
+	.link-animation {
+		&:after {
+			@apply link-animation-after;
+		}
+		&:hover {
+			&:after {
+				@apply link-animation-hover-after;
+			}
+		}
+	}
+
+	.trigger-link-animation {
+		&:hover {
+			.link-animation {			
+				&:after {
+					@apply link-animation-hover-after;
+				}				
+			}
+		}
+	}
+
+	.zoom-in-hover {
+		@apply transition-all duration-300 ease-in-out;
+		&:hover {
+			@apply scale-110;
+		}
+	}
+
+	.h-full-child * {
+		@apply h-full;
+	}
+	
+	.w-full-child * {
+		@apply w-full;
+	}	
+
+    .markdown {	
+		h1 {
+			@apply my-10 text-5xl font-bold;
+		}
+		h2 {
+			@apply my-10 text-4xl;
+		}
+		h3 {
+			@apply my-10 text-3xl;
+		}
+		h4 {
+			@apply my-10 text-2xl italic;
+		}
+		h5 {
+			@apply my-10 text-xl italic;
+		}
+        p {
+            @apply my-4;
+        }
+		a {
+            @apply float-left text-2xl italic text-orange-300;
+			&:after {
+				@apply link-animation-after;
+			}
+			&:hover {
+				&:after {
+					@apply link-animation-hover-after;
+				}
+			}
+        }
+        ul {
+            @apply flex flex-col gap-3 my-3;
+			li {
+				@apply ml-12;
+				&:before {
+					@apply absolute left-6 text-2xl chevron-right text-orange-300;
+				}
+			}
+        }
+		table {
+			thead, tbody {
+				@apply flex flex-col;
+				tr {
+					@apply grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3;
+					td {
+						@apply p-3;
+					}
+				}							
+			}						
+		}
+		img {
+			@apply mask-grunge-cover w-full;
+		}
+		&-text-only {
+			:not(p, h1, h2, h3, h4, h5, h6) {
+				@apply hidden;
+			}
+		}
+    }
+}

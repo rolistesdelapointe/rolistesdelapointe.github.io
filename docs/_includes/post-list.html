@@ -1,0 +1,45 @@
+<div class="grid grid-cols-1 xl:grid-cols-3 gap-6 2xl:gap-x-10 gap-y-20 z-20 relative z-20">
+    {% assign blogPosts = site.posts | where_exp: "post", "post.type == 'blog'" %}
+    {% if include.excludeFeatured %}
+        {% assign blogPosts = site.posts | where_exp: "post", "post.type == 'blog'" | where_exp: "post", "post.featured != true" %}
+    {% endif %}
+    {% assign limit = 9999999999 %}
+    {% if include.postLimit %}
+        {% assign postLimit = include.postLimit %}
+    {% endif %}
+    {% for post in blogPosts limit:postLimit %}
+        {% assign postTitleSize = post.title | size %}
+        {% assign postTitleSizeMinusOne = postTitleSize | minus:1 %}
+        {% capture postContent %}
+            {% include plugins/strip-html.liquid content=post.content keepBr=true %}
+        {% endcapture %}
+        <div class="flex flex-col relative pb-10">
+            <div class="relative">
+                {% if post.featured %}
+                    <i class="z-50 absolute top-8 left-6 text-4xl text-orange-600 fa fa-fire"></i>
+                {% endif %}
+                {% if post.image %}
+                    <img alt="{{ post.title }}" class="h-60 w-full object-cover mask-grunge-cover my-3" src="{{ '/images/' | append: post.image | relative_url }}">
+                {% else %}
+                    <div class="h-60 w-full my-3">
+                        <div class="w-full h-full w-full-child h-full-child fill-primary-400 bg-primary-800 p-14 mask-grunge-cover">{% include dice.svg %}</div>        
+                    </div>
+                {% endif %}
+            </div>
+            <h2 class="text-justify text-2xl 2xl:text-3xl my-3 tracking-wide">
+                <span class="xl:text-6xl text-primary-400 font-family-fairy font-light">{{ post.title | slice:0 }}</span>{{ post.title | slice: 1, postTitleSizeMinusOne }}                        
+            </h2>
+            {% capture dateYear %}
+                {{ post.date | date: "%Y" }}
+            {% endcapture %}
+            {% assign dateYear=dateYear | plus:0 %}
+            {% if dateYear > 2000 %}
+                <div class="text-xl text-primary-400">Le {{ post.date | date: "%d/%m/%Y" }}</div>
+            {% endif %}
+            <div class="text-justify text-lg 2xl:text-2xl my-3 markdown markdown-text-only">{{ postContent | truncatewords: 30, "..." }}</div>
+            <div class="inline-block absolute bottom-0">
+                <a href="{{ post.url }}" class="text-2xl inline-block italic link-animation text-orange-300"><i class="fa fa-eye"></i>&nbsp;Lire la suite</a>
+            </div>
+        </div>
+    {% endfor %}                                 
+</div>
