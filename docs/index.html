@@ -57,7 +57,7 @@ layout: theme-layout
     {% include 2-col-section.html svg="banner-icon.svg" title=homePost.title content=homePost.content reverse=true %}
 
     <!-- Le blog - Article mis en avant -->    
-    <div id="brulant" class="absolute -mt-32"></div>
+    <div id="actu" class="absolute -mt-32"></div>
     {% assign featuredPost = site.posts | where: "featured", true | where_exp: "post", "post.path contains 'pages_blog'" | first %}
     {% if featuredPost %}
         {% capture featuredPostImgUrl %}{{ '/images/' | append: featuredPost.image | relative_url }}{% endcapture %}
