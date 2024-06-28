@@ -1257,6 +1257,10 @@ section {
   background-size: cover;
 }
 
+.bg-center {
+  background-position: center;
+}
+
 .bg-no-repeat {
   background-repeat: no-repeat;
 }
@@ -1499,7 +1503,7 @@ section {
   font-family: "FairyDustB";
 }
 
-$color-primary: #5b6992;
+$color-primary: #66749e;
 
 $color-primary-50:  lighten($color-primary, 60);
 
