@@ -22,7 +22,7 @@ title: Les Rôlistes de la Pointe
 email: rolistesdelapointe@gmail.com
 description:
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://lesrolistesdelapointe.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://rolistesdelapointe.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 
 # Build settings
 plugins:
